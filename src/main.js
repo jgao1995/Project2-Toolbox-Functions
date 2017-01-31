@@ -7,7 +7,6 @@ import Framework from './framework'
 var tick = 0;
 var feathers = 100;
 var flap_motion = 100;
-var wind_direction = 0;
 var featherGeo;
 
 // bone stuff
@@ -35,11 +34,16 @@ var wing_curve = function() {
     this.curve = 0;
 };
 
+var wind_direction = function() {
+    this.wind_direction = 0;
+}
+
 // defining our scales
 var wind_speed_scale = new wind_speed();
 var wing_curve_scale = new wing_curve();
 var feather_color_scale = new feather_color();
 var visible_feathers_scale = new visible_feathers();
+var wind_direction_scale = new wind_direction();
 
 // called after the scene loads
 function onLoad(framework) {
@@ -170,7 +174,10 @@ function onLoad(framework) {
             var feather = framework.scene.getObjectByName(i);
             feather.traverse( function ( object ) { object.visible = false; });
         }
+    });
 
+    gui.add(wind_direction_scale, 'wind_direction', 0, 1).onChange(function(newVal) {
+        wind_direction_scale.wind_direction = newVal;
     });
 }
 
@@ -186,9 +193,14 @@ function onUpdate(framework) {
         var feather = framework.scene.getObjectByName(i);
         var date = new Date();
         if (feather !== undefined) {
-            feather.rotateZ(wind_speed_scale.wind_speed / 100 * Math.sin(i * flap_motion + date.getTime() / 100) * 2 * Math.PI / 180);
             feather.material.color.set(base_color + feather_color_scale.color * 167772);
-            //feather.translateZ(wind_speed * Math.sin(i * flap_motion + date.getTime() / 100) * 2 * Math.PI / 180);
+
+            if (wind_direction_scale.wind_direction == 0) {
+                feather.rotateZ(wind_speed_scale.wind_speed / 100 * Math.sin(i * flap_motion + date.getTime() / 100) * 2 * Math.PI / 180);
+            }
+            else {
+                feather.rotateY(wind_speed_scale.wind_speed / 100 * Math.cos(i * flap_motion + date.getTime() / 100) * 2 * Math.PI / 180);
+            }
         }
     }
 }
