@@ -5,10 +5,10 @@
 
 # Features Implemented
 
-Modeling 
+Modeling
 -------
 
-I based my wing and feather structure from that of an owl. 
+I based my wing and feather structure from that of an owl.
 
 To make the bone, I used QuadraticBezierCurve3 to sketch out its rough outline. I attempted to make the bone follow the general structure of an owl wing by finding points that would make the closest parabola possible. Once the Bezier curve was created, I distributed vertices evenly along the bone structure that would serve as the locations of the 100 feathers.
 
@@ -25,6 +25,6 @@ All the required interactivity features have been implemented, and the user is a
 
 Extra Credit
 ------------
-- No extra credit implemented for this homework. 
+No extra credit implemented for this homework.
 
 
