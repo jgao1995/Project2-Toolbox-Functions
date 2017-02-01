@@ -28,7 +28,7 @@ var visible_feathers = function() {
 }
 
 var wind_speed = function() {
-    this.wind_speed = 0;
+    this.wind_speed = 10;
 };
 
 var wing_curve = function() {
